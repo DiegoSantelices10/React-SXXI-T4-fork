@@ -1,6 +1,6 @@
+/* eslint-disable no-undef */
 import React from "react";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
+import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
 import { MemoryRouter, Routes, Route } from "react-router";
@@ -64,7 +64,7 @@ test("Renderizacion de formulario de datos ONG,se validan los campos, mock de ap
 		</Provider>
 	);
 
-	//Se renderiza correctamente los componentes del formulario
+	// Se renderiza correctamente los componentes del formulario
 	const inputName = await screen.findByPlaceholderText("Ingresa el nombre de la Organizacion");
 	const inputImage = await screen.findByAltText("image");
 	const inputLongDescription = await screen.findByPlaceholderText("Ingresa una descripcion larga");
@@ -85,7 +85,7 @@ test("Renderizacion de formulario de datos ONG,se validan los campos, mock de ap
 	expect(inputTwitter).toBeInTheDocument();
 	expect(await screen.findByText("Enviar")).toBeInTheDocument();
 
-	//Aparece los mensajes de error al no llenar los campos y submitear el formulario
+	// Aparece los mensajes de error al no llenar los campos y submitear el formulario
 	userEvent.click(submitButton);
 	const errorMessages = await screen.findAllByText("*Este campo es requerido");
 	expect(errorMessages.length).toBe(4);
@@ -93,7 +93,7 @@ test("Renderizacion de formulario de datos ONG,se validan los campos, mock de ap
 	userEvent.type(inputLongDescription, "Descripcion larga");
 	userEvent.type(inputShortDescription, "Descripcion corta");
 
-	//Aparece error Formato no valido
+	// Aparece error Formato no valido
 	const imageGIF = new File(["(⌐□_□)"], "hello.gif", { type: "image/gif" });
 	const imagePNG = new File(["(⌐□_□)"], "hello.png", { type: "image/png" });
 	userEvent.upload(inputImage, imageGIF);
@@ -102,7 +102,7 @@ test("Renderizacion de formulario de datos ONG,se validan los campos, mock de ap
 	userEvent.click(buttonOKImage);
 	userEvent.upload(inputImage, imagePNG);
 
-	//Aparece error URL INVALIDO facebook y linkedin
+	// Aparece error URL INVALIDO facebook y linkedin
 	userEvent.type(inputFacebook, "asd");
 	userEvent.type(inputLinkedin, "asd");
 	userEvent.type(inputInstagram, "asd");
@@ -118,7 +118,7 @@ test("Renderizacion de formulario de datos ONG,se validan los campos, mock de ap
 	userEvent.clear(inputTwitter);
 	userEvent.type(inputTwitter, "https://twitter.com/OngSomosMas1");
 
-	//Testing sumbit del formulario
+	// Testing sumbit del formulario
 	const sendButton = await screen.findByRole("button", { type: "submit" });
 	userEvent.click(sendButton);
 	expect(await screen.findByText("¡Se actualizó con éxito!")).toBeInTheDocument();

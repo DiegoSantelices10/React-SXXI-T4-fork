@@ -42,7 +42,7 @@ const ActivitiesForm = () => {
 		image: yup.string().required(message),
 	});
 
-	const handleSubmitFormik = async(values, resetForm) => {
+	const handleSubmitFormik = async (values, resetForm) => {
 		if (id) {
 			if (values.image === activity.image) {
 				delete values.image;
